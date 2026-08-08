@@ -7,6 +7,7 @@ export const PWAInstallPrompt: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isIOS, setIsIOS] = useState<boolean>(false);
   const [isInIframe, setIsInIframe] = useState<boolean>(false);
+  const [fallbackGuide, setFallbackGuide] = useState<boolean>(false);
   const [installedSuccess, setInstalledSuccess] = useState<boolean>(false);
 
   useEffect(() => {
@@ -98,7 +99,11 @@ export const PWAInstallPrompt: React.FC = () => {
         setDeferredPrompt(null);
       } catch (err) {
         console.error('Install prompt error:', err);
+        setFallbackGuide(true);
       }
+    } else {
+      // If native prompt is not captured yet, show direct instruction to tap Add
+      setFallbackGuide(true);
     }
   };
 
@@ -160,6 +165,19 @@ export const PWAInstallPrompt: React.FC = () => {
                 <p className="text-sm text-emerald-100/90 text-center leading-relaxed">
                   দ্রুত ব্যবহার ও অফলাইন সুবিধার জন্য অ্যাপটি আপনার ফোনে ইন্সটল করুন।
                 </p>
+
+                {/* Fallback Android Notice */}
+                {fallbackGuide && !isIOS && (
+                  <div className="p-3.5 bg-emerald-900/90 border border-amber-400/50 rounded-2xl text-xs text-amber-200 space-y-2 text-left animate-fade-in">
+                    <p className="font-bold flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm">
+                      <Download className="w-4 h-4 text-amber-400" />
+                      হোম স্ক্রিনে যুক্ত করার সহজ নিয়ম:
+                    </p>
+                    <p className="text-emerald-100 text-xs leading-relaxed">
+                      ক্রোম ব্রাউজারের পপআপে বা ৩-ডট মেনুতে <strong>"Create shortcut"</strong> বা <strong>"Add to Home screen"</strong> ডায়ালগ আসলে <strong>"Add"</strong> বা <strong>"ইন্সটল"</strong> বাটনে ক্লিক করুন।
+                    </p>
+                  </div>
+                )}
 
                 {/* iOS Instructions (only if iOS) */}
                 {isIOS && (
