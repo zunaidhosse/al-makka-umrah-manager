@@ -1,0 +1,6 @@
+{
+  "name": "যাত্রী প্যাকেজ তালিকা",
+  "description": "Islamic-style Passenger Package List PWA for Hajj and Umrah groups with 50 members tracking, auto SAR summary, admin controls, and export options.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
