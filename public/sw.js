@@ -1,33 +1,37 @@
-const CACHE_NAME = 'yatri-package-v1';
+const CACHE_NAME = 'yatri-package-v2';
 const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './manifest.json',
-  './favicon.svg',
-  './favicon.png',
-  './pwa-192x192.png',
-  './pwa-512x512.png',
-  './apple-touch-icon.png'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/favicon.svg',
+  '/favicon.png',
+  '/pwa-192x192.png',
+  '/pwa-512x512.png',
+  '/apple-touch-icon.png'
 ];
 
-// Install Event
+// Install Event - cache assets safely
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(CACHE_NAME).then(async (cache) => {
       console.log('[ServiceWorker] Caching app shell');
-      return cache.addAll(ASSETS_TO_CACHE);
+      await Promise.allSettled(
+        ASSETS_TO_CACHE.map((url) =>
+          cache.add(url).catch((err) => console.log('SW cache skip:', url, err))
+        )
+      );
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activate Event
+// Activate Event - clean old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
           if (key !== CACHE_NAME) {
-            console.log('[ServiceWorker] Removing old cache', key);
+            console.log('[ServiceWorker] Removing old cache:', key);
             return caches.delete(key);
           }
         })
@@ -36,13 +40,16 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event (Network-First with Cache Fallback for HTML/data, Stale-While-Revalidate for static)
+// Fetch Event
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (!event.request.url.startsWith('http')) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      const fetchPromise = fetch(event.request)
+      if (cachedResponse) return cachedResponse;
+
+      return fetch(event.request)
         .then((networkResponse) => {
           if (
             networkResponse &&
@@ -57,14 +64,10 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => {
-          // If offline and request is navigation, return cached index.html
           if (event.request.mode === 'navigate') {
-            return caches.match('./index.html') || caches.match('./');
+            return caches.match('/') || caches.match('/index.html');
           }
-          return cachedResponse;
         });
-
-      return cachedResponse || fetchPromise;
     })
   );
 });

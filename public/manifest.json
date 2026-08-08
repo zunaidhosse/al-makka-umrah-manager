@@ -1,48 +1,48 @@
 {
-  "id": "yatri-package-list-app",
+  "id": "yatri-package-list-app-v1",
   "short_name": "প্যাকেজ তালিকা",
   "name": "যাত্রী প্যাকেজ তালিকা - হাজী ও ওমরাহ ম্যানেজমেন্ট",
   "description": "যাত্রী প্যাকেজ তালিকা - হাজী ও ওমরাহ যাত্রীদের ম্যানেজমেন্ট অ্যাপ",
   "lang": "bn",
   "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#064e3b",
+  "theme_color": "#064e3b",
   "icons": [
     {
-      "src": "pwa-192x192.png",
+      "src": "/pwa-192x192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "pwa-192x192.png",
+      "src": "/pwa-192x192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "pwa-512x512.png",
+      "src": "/pwa-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
     },
     {
-      "src": "pwa-512x512.png",
+      "src": "/pwa-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     },
     {
-      "src": "favicon.svg",
+      "src": "/favicon.svg",
       "type": "image/svg+xml",
       "sizes": "512x512",
       "purpose": "any"
     }
   ],
-  "start_url": "./",
-  "scope": "./",
-  "background_color": "#064e3b",
-  "theme_color": "#064e3b",
-  "display": "standalone",
-  "orientation": "portrait",
   "categories": ["travel", "utilities"],
   "prefer_related_applications": false
 }
