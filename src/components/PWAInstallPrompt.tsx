@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Download, WifiOff, X, Sparkles, Share2 } from 'lucide-react';
+import { Download, WifiOff, X, Sparkles } from 'lucide-react';
 
 export const PWAInstallPrompt: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [isIOS, setIsIOS] = useState<boolean>(false);
-  const [showIOSGuide, setShowIOSGuide] = useState<boolean>(false);
 
   useEffect(() => {
     // Detect standalone display mode (already installed app)
@@ -18,13 +16,7 @@ export const PWAInstallPrompt: React.FC = () => {
     const isInstalled = localStorage.getItem('pwa_installed') === 'true';
     const isDismissed = localStorage.getItem('pwa_dismissed') === 'true';
 
-    // Detect iOS
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const isIosDevice = /iphone|ipad|ipod/.test(userAgent);
-    setIsIOS(isIosDevice);
-
     if (!isStandalone && !isInstalled && !isDismissed) {
-      // Delay slightly to give page a smooth load
       const timer = setTimeout(() => {
         setShowModal(true);
       }, 1000);
@@ -38,6 +30,7 @@ export const PWAInstallPrompt: React.FC = () => {
       setDeferredPrompt(null);
     };
 
+    // Save native beforeinstallprompt event
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -71,11 +64,6 @@ export const PWAInstallPrompt: React.FC = () => {
         setShowModal(false);
       }
       setDeferredPrompt(null);
-    } else if (isIOS) {
-      setShowIOSGuide(true);
-    } else {
-      // Browser doesn't support automatic prompt or manual trigger required
-      alert("অ্যাপ ইন্সটল করতে আপনার ব্রাউজারের মেনু (⋮ বা Share) থেকে 'Add to Home screen' বা 'Install app' নির্বাচন করুন।");
     }
   };
 
@@ -128,38 +116,37 @@ export const PWAInstallPrompt: React.FC = () => {
               দ্রুত ব্যবহার ও অফলাইন সুবিধার জন্য অ্যাপটি আপনার ফোনে ইন্সটল করুন।
             </p>
 
-            {/* iOS Guide if needed */}
-            {showIOSGuide && (
-              <div className="p-3 bg-emerald-900/90 border border-amber-400/40 rounded-xl text-xs text-amber-200 space-y-1 text-left">
-                <p className="font-bold flex items-center gap-1 text-amber-300">
-                  <Share2 className="w-4 h-4" />
-                  আইফোনে ইন্সটল করার নিয়ম:
+            {/* Action Area */}
+            {deferredPrompt ? (
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  onClick={handleLaterClick}
+                  className="flex-1 py-3 px-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95 text-center"
+                >
+                  পরে (Later)
+                </button>
+
+                <button
+                  onClick={handleInstallClick}
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>ইন্সটল করুন</span>
+                </button>
+              </div>
+            ) : (
+              <div className="pt-2 text-center space-y-3">
+                <p className="text-xs text-amber-300/90 bg-emerald-900/80 p-2.5 rounded-xl border border-amber-500/30">
+                  এই ব্রাউজারে সরাসরি ইন্সটল সাপোর্ট নেই।
                 </p>
-                <ol className="list-decimal list-inside space-y-0.5 text-emerald-100">
-                  <li>সাফারি ব্রাউজারের নিচে Share (শেয়ার) আইকন চাপুন।</li>
-                  <li>মেনু থেকে <strong>Add to Home Screen</strong> চাপুন।</li>
-                  <li>উপরে <strong>Add</strong> চাপলেই অ্যাপ ইন্সটল হয়ে যাবে।</li>
-                </ol>
+                <button
+                  onClick={handleLaterClick}
+                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95"
+                >
+                  ঠিক আছে (Later)
+                </button>
               </div>
             )}
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-3 pt-2">
-              <button
-                onClick={handleLaterClick}
-                className="flex-1 py-3 px-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95 text-center"
-              >
-                পরে (Later)
-              </button>
-
-              <button
-                onClick={handleInstallClick}
-                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
-              >
-                <Download className="w-4 h-4" />
-                <span>ইন্সটল করুন</span>
-              </button>
-            </div>
 
             {/* Sub-note */}
             <p className="text-[11px] text-emerald-300/70 text-center flex items-center justify-center gap-1">
@@ -173,3 +160,4 @@ export const PWAInstallPrompt: React.FC = () => {
     </>
   );
 };
+
