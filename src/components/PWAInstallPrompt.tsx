@@ -16,13 +16,6 @@ export const PWAInstallPrompt: React.FC = () => {
     const isInstalled = localStorage.getItem('pwa_installed') === 'true';
     const isDismissed = localStorage.getItem('pwa_dismissed') === 'true';
 
-    if (!isStandalone && !isInstalled && !isDismissed) {
-      const timer = setTimeout(() => {
-        setShowModal(true);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-
     // Listen for appinstalled event
     const handleAppInstalled = () => {
       localStorage.setItem('pwa_installed', 'true');
@@ -30,7 +23,7 @@ export const PWAInstallPrompt: React.FC = () => {
       setDeferredPrompt(null);
     };
 
-    // Save native beforeinstallprompt event
+    // Save native beforeinstallprompt event and show modal ONLY when install is ready
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -82,8 +75,8 @@ export const PWAInstallPrompt: React.FC = () => {
         </div>
       )}
 
-      {/* PWA Installation Modal */}
-      {showModal && (
+      {/* PWA Installation Modal - Only render when install prompt is actually available */}
+      {showModal && deferredPrompt && (
         <div className="no-print fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fade-in">
           <div className="bg-emerald-950 border-2 border-amber-400 rounded-3xl max-w-sm w-full shadow-2xl p-6 text-white space-y-4 animate-scale-up relative">
             
@@ -117,36 +110,22 @@ export const PWAInstallPrompt: React.FC = () => {
             </p>
 
             {/* Action Area */}
-            {deferredPrompt ? (
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  onClick={handleLaterClick}
-                  className="flex-1 py-3 px-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95 text-center"
-                >
-                  পরে (Later)
-                </button>
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                onClick={handleLaterClick}
+                className="flex-1 py-3 px-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95 text-center"
+              >
+                পরে (Later)
+              </button>
 
-                <button
-                  onClick={handleInstallClick}
-                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>ইন্সটল করুন</span>
-                </button>
-              </div>
-            ) : (
-              <div className="pt-2 text-center space-y-3">
-                <p className="text-xs text-amber-300/90 bg-emerald-900/80 p-2.5 rounded-xl border border-amber-500/30">
-                  এই ব্রাউজারে সরাসরি ইন্সটল সাপোর্ট নেই।
-                </p>
-                <button
-                  onClick={handleLaterClick}
-                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95"
-                >
-                  ঠিক আছে (Later)
-                </button>
-              </div>
-            )}
+              <button
+                onClick={handleInstallClick}
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
+              >
+                <Download className="w-4 h-4" />
+                <span>ইন্সটল করুন</span>
+              </button>
+            </div>
 
             {/* Sub-note */}
             <p className="text-[11px] text-emerald-300/70 text-center flex items-center justify-center gap-1">
