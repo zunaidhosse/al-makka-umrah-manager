@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Download, WifiOff, X, Sparkles, Share2, CheckCircle2, Smartphone } from 'lucide-react';
+import { Download, WifiOff, X, Sparkles, Share2, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export const PWAInstallPrompt: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isIOS, setIsIOS] = useState<boolean>(false);
-  const [showGuide, setShowGuide] = useState<boolean>(false);
+  const [isInIframe, setIsInIframe] = useState<boolean>(false);
   const [installedSuccess, setInstalledSuccess] = useState<boolean>(false);
 
   useEffect(() => {
+    // Check if running inside iframe
+    const inIframe = window.self !== window.top;
+    setIsInIframe(inIframe);
+
     // Check if app is running in standalone PWA mode
     const isStandalone =
       window.matchMedia('(display-mode: standalone)').matches ||
@@ -24,11 +28,11 @@ export const PWAInstallPrompt: React.FC = () => {
     const isIosDevice = /iphone|ipad|ipod/.test(userAgent);
     setIsIOS(isIosDevice);
 
-    // If not standalone and not installed/dismissed, show modal
+    // Show modal if not installed/dismissed
     if (!isStandalone && !isInstalled && !isDismissed) {
       const timer = setTimeout(() => {
         setShowModal(true);
-      }, 1200);
+      }, 1000);
       return () => clearTimeout(timer);
     }
 
@@ -61,7 +65,6 @@ export const PWAInstallPrompt: React.FC = () => {
 
     // Global listener for manual trigger from header
     const handleOpenPrompt = () => {
-      setShowGuide(false);
       setShowModal(true);
     };
     window.addEventListener('open-pwa-install', handleOpenPrompt);
@@ -76,6 +79,13 @@ export const PWAInstallPrompt: React.FC = () => {
   }, []);
 
   const handleInstallClick = async () => {
+    // If inside an iframe (like AI Studio preview), PWA prompts are blocked by browser policy.
+    // Open in a new tab where browser allows native PWA installation!
+    if (isInIframe) {
+      window.open(window.location.href, '_blank');
+      return;
+    }
+
     if (deferredPrompt) {
       try {
         deferredPrompt.prompt();
@@ -87,11 +97,8 @@ export const PWAInstallPrompt: React.FC = () => {
         }
         setDeferredPrompt(null);
       } catch (err) {
-        setShowGuide(true);
+        console.error('Install prompt error:', err);
       }
-    } else {
-      // If deferredPrompt is not available (iOS or browser without native trigger), show guide
-      setShowGuide(true);
     }
   };
 
@@ -154,33 +161,18 @@ export const PWAInstallPrompt: React.FC = () => {
                   দ্রুত ব্যবহার ও অফলাইন সুবিধার জন্য অ্যাপটি আপনার ফোনে ইন্সটল করুন।
                 </p>
 
-                {/* Show Instructions if native prompt is not available or triggered */}
-                {showGuide && (
+                {/* iOS Instructions (only if iOS) */}
+                {isIOS && (
                   <div className="p-3.5 bg-emerald-900/90 border border-amber-400/50 rounded-2xl text-xs text-amber-200 space-y-2 text-left animate-fade-in">
-                    {isIOS ? (
-                      <>
-                        <p className="font-bold flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm">
-                          <Share2 className="w-4 h-4" />
-                          আইফোনে (iOS) ইন্সটল করার নিয়ম:
-                        </p>
-                        <ol className="list-decimal list-inside space-y-1 text-emerald-100">
-                          <li>সাফারি (Safari) ব্রাউজারের নিচে <strong>Share (শেয়ার)</strong> বাটনে চাপুন।</li>
-                          <li>নিচে স্ক্রোল করে <strong>Add to Home Screen</strong> সিলেক্ট করুন।</li>
-                          <li>উপরে <strong>Add</strong> ক্লিক করলেই অ্যাপ ইন্সটল হয়ে যাবে।</li>
-                        </ol>
-                      </>
-                    ) : (
-                      <>
-                        <p className="font-bold flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm">
-                          <Smartphone className="w-4 h-4" />
-                          অ্যান্ড্রয়েড/ব্রাউজারে ইন্সটল করার নিয়ম:
-                        </p>
-                        <ol className="list-decimal list-inside space-y-1 text-emerald-100">
-                          <li>ব্রাউজারের উপরে ডানকোণে <strong>৩-ডট মেনু (⋮)</strong> চাপুন।</li>
-                          <li>মেনু থেকে <strong>Install app</strong> অথবা <strong>Add to Home screen</strong> অপশন নির্বাচন করুন।</li>
-                        </ol>
-                      </>
-                    )}
+                    <p className="font-bold flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm">
+                      <Share2 className="w-4 h-4" />
+                      আইফোনে (iOS) ইন্সটল করার নিয়ম:
+                    </p>
+                    <ol className="list-decimal list-inside space-y-1 text-emerald-100">
+                      <li>সাফারি (Safari) ব্রাউজারের নিচে <strong>Share (শেয়ার)</strong> বাটনে চাপুন।</li>
+                      <li>নিচে স্ক্রোল করে <strong>Add to Home Screen</strong> সিলেক্ট করুন।</li>
+                      <li>উপরে <strong>Add</strong> ক্লিক করলেই অ্যাপ ইন্সটল হয়ে যাবে।</li>
+                    </ol>
                   </div>
                 )}
 
@@ -197,8 +189,17 @@ export const PWAInstallPrompt: React.FC = () => {
                     onClick={handleInstallClick}
                     className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
                   >
-                    <Download className="w-4 h-4" />
-                    <span>ইন্সটল করুন</span>
+                    {isInIframe ? (
+                      <>
+                        <ExternalLink className="w-4 h-4" />
+                        <span>নতুন ট্যাবে ইন্সটল করুন</span>
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-4 h-4" />
+                        <span>ইন্সটল করুন</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </>
@@ -216,5 +217,6 @@ export const PWAInstallPrompt: React.FC = () => {
     </>
   );
 };
+
 
 
