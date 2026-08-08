@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppConfig } from '../types';
-import { Menu, Save, History, X } from 'lucide-react';
+import { Menu, Save, History, Download, X } from 'lucide-react';
 
 interface HeaderProps {
   config: AppConfig;
@@ -17,6 +17,11 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const handleOpenInstall = () => {
+    setIsMenuOpen(false);
+    window.dispatchEvent(new CustomEvent('open-pwa-install'));
+  };
+
   return (
     <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2 mb-2">
       {/* Minimal Centered Bismillah Header */}
@@ -26,8 +31,17 @@ export const Header: React.FC<HeaderProps> = ({
         </p>
       </div>
 
-      {/* Top-Right Menu Button */}
-      <div className="absolute right-4 top-3 sm:right-6 sm:top-3">
+      {/* Top-Right Menu & Install Buttons */}
+      <div className="absolute right-4 top-3 sm:right-6 sm:top-3 flex items-center gap-2">
+        <button
+          onClick={handleOpenInstall}
+          className="px-2.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold text-xs shadow-sm transition-all active:scale-95 flex items-center gap-1.5"
+          title="অ্যাপ ইন্সটল করুন"
+        >
+          <Download className="w-4 h-4" />
+          <span className="hidden sm:inline">ইন্সটল</span>
+        </button>
+
         <button
           onClick={() => setIsMenuOpen(true)}
           className="p-2 sm:p-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 dark:bg-emerald-950 dark:hover:bg-emerald-900 text-amber-300 border border-amber-500/40 shadow-sm transition-all active:scale-95 flex items-center justify-center"
@@ -61,9 +75,25 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               </div>
 
-              {/* Menu Options (Only 2) */}
+              {/* Menu Options */}
               <div className="space-y-3 pt-1">
-                {/* Option 1: Save Data */}
+                {/* Option 1: Install App */}
+                <button
+                  onClick={handleOpenInstall}
+                  className="w-full flex items-center gap-3.5 p-4 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/60 text-left transition-all active:scale-98 group shadow-md"
+                >
+                  <div className="p-2.5 rounded-xl bg-amber-500 text-emerald-950 font-bold group-hover:scale-105 transition-transform">
+                    <Download className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-base text-amber-300 transition-colors">
+                      Install App (অ্যাপ ইন্সটল)
+                    </h4>
+                    <p className="text-xs text-emerald-200/80">মোবাইলে বা কম্পিউটারে অ্যাপটি ইন্সটল করুন</p>
+                  </div>
+                </button>
+
+                {/* Option 2: Save Data */}
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
@@ -82,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                 </button>
 
-                {/* Option 2: History */}
+                {/* Option 3: History */}
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
@@ -97,7 +127,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <h4 className="font-bold text-base text-white group-hover:text-amber-300 transition-colors">
                       History (সংরক্ষিত হিস্ট্রি)
                     </h4>
-                    <p className="text-xs text-emerald-200/80">পূর্বে সেভ করা সকল রেকর্ড দেখুন ও রিস্টোর করুন</p>
+                    <p className="text-xs text-emerald-200/80">পূর্বে সেভ করা সকল রেকর্ড দেখুন ও ম্যানেজ করুন</p>
                   </div>
                 </button>
               </div>
@@ -109,4 +139,5 @@ export const Header: React.FC<HeaderProps> = ({
     </div>
   );
 };
+
 
