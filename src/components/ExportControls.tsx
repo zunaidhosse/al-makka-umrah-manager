@@ -317,26 +317,26 @@ export const ExportControls: React.FC<ExportControlsProps> = ({
       {/* 3-Dot / 3-Line Menu Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-800 to-emerald-900 hover:from-emerald-700 hover:to-emerald-800 text-amber-300 font-bold text-xs sm:text-sm border border-amber-400/50 shadow-md transition-all active:scale-95"
+        className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#00BFFF] via-[#0047FF] to-[#8A2BE2] hover:from-[#00FFFF] hover:to-[#8A2BE2] text-white font-extrabold text-xs sm:text-sm border border-[#00FFFF]/50 shadow-[0_0_15px_rgba(0,191,255,0.4)] transition-all active:scale-95"
         title="ডাউনলোড ও প্রিন্ট অপশন (3-Dot Menu)"
       >
-        <MoreVertical className="w-5 h-5 text-amber-300" />
+        <MoreVertical className="w-5 h-5 text-[#00FFFF] glow-icon-cyan" />
         <span className="hidden sm:inline font-bengali-heading">রিপোর্ট ডাউনলোড</span>
-        <Download className="w-4 h-4 text-amber-400" />
+        <Download className="w-4 h-4 text-[#39FF14] glow-icon-green" />
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl bg-emerald-950 border-2 border-amber-400/80 shadow-2xl z-50 overflow-hidden text-white animate-fadeIn p-3">
+        <div className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl bg-[#0A1035] border-2 border-[#00FFFF] shadow-[0_0_30px_rgba(0,255,255,0.4)] z-50 overflow-hidden text-white animate-fadeIn p-3">
           
-          <div className="flex items-center justify-between pb-2 mb-2 border-b border-emerald-800">
-            <div className="flex items-center gap-2 text-amber-300 font-bold text-xs sm:text-sm font-bengali-heading">
-              <Sparkles className="w-4 h-4 text-amber-400" />
+          <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#00BFFF]/30">
+            <div className="flex items-center gap-2 text-[#00FFFF] font-extrabold text-xs sm:text-sm font-bengali-heading">
+              <Sparkles className="w-4 h-4 text-[#FFD700] glow-icon-gold" />
               <span>১-ক্লিকে রিপোর্ট ডাউনলোড করুন (Export Options)</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-emerald-300 hover:text-white p-1 rounded-lg"
+              className="text-cyan-300 hover:text-white p-1 rounded-lg hover:bg-[#050A30]"
             >
               <X className="w-4 h-4" />
             </button>
@@ -348,20 +348,20 @@ export const ExportControls: React.FC<ExportControlsProps> = ({
             <button
               onClick={handleDownloadPNG}
               disabled={!!exporting}
-              className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-98 disabled:opacity-50"
+              className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] to-[#FF4DFF] hover:from-[#00FFFF] hover:to-[#FF4DFF] text-white font-extrabold text-xs sm:text-sm shadow-[0_0_15px_rgba(0,191,255,0.5)] transition-all active:scale-98 disabled:opacity-50 border border-[#00FFFF]/40"
             >
               <div className="flex items-center gap-2.5">
-                <FileImage className="w-5 h-5 text-emerald-950" />
+                <FileImage className="w-5 h-5 text-[#00FFFF] glow-icon-cyan" />
                 <span>PNG হাই-কোয়ালিটি ছবি ডাউনলোড</span>
               </div>
-              {exporting === 'png' ? <Loader2 className="w-4 h-4 animate-spin text-emerald-950" /> : <Download className="w-4 h-4 text-emerald-950" />}
+              {exporting === 'png' ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : <Download className="w-4 h-4 text-[#39FF14]" />}
             </button>
 
           </div>
 
           {successMsg && (
-            <div className="mt-2.5 p-2 rounded-lg bg-amber-400/20 text-amber-300 text-xs font-bold text-center flex items-center justify-center gap-1.5 border border-amber-400/30">
-              <CheckCircle className="w-3.5 h-3.5 text-amber-300" />
+            <div className="mt-2.5 p-2 rounded-xl bg-[#39FF14]/20 text-[#39FF14] text-xs font-bold text-center flex items-center justify-center gap-1.5 border border-[#39FF14]/50 shadow-[0_0_10px_rgba(57,255,20,0.3)]">
+              <CheckCircle className="w-3.5 h-3.5 text-[#39FF14]" />
               <span>{successMsg}</span>
             </div>
           )}

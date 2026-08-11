@@ -96,14 +96,17 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-emerald-950/80 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-xl bg-white dark:bg-slate-900 rounded-3xl border-2 border-amber-500/60 shadow-2xl overflow-hidden text-slate-800 dark:text-slate-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050A30]/85 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-xl bg-[#0A1035]/95 rounded-3xl border-2 border-[#00FFFF] shadow-[0_0_40px_rgba(0,255,255,0.4)] overflow-hidden text-slate-100 relative">
         
+        {/* Subtle Top Gradient Line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] via-[#FF4DFF] to-[#39FF14]"></div>
+
         {/* Modal Header */}
-        <div className="bg-emerald-900 text-amber-300 p-5 flex items-center justify-between border-b-2 border-amber-500">
+        <div className="bg-gradient-to-r from-[#050A30] via-[#0A1035] to-[#050A30] text-white p-5 flex items-center justify-between border-b border-[#00BFFF]/30">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-400" />
-            <h2 className="text-xl font-bold font-bengali-heading">
+            <Sparkles className="w-5 h-5 text-[#FFD700] glow-icon-gold" />
+            <h2 className="text-xl font-black font-bengali-heading neon-text-gradient-primary">
               {activeTab === 'member'
                 ? editingMember ? `যাত্রী তথ্য সম্পাদনা (সিরিয়াল #${editingMember.serial})` : 'নতুন যাত্রী যোগ / এডিট'
                 : 'অ্যাডমিন ও পেজ সেটিংস'}
@@ -111,34 +114,34 @@ export const AdminModal: React.FC<AdminModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-emerald-800 text-amber-300 hover:text-white transition-colors"
+            className="p-1.5 rounded-xl bg-[#050A30] hover:bg-[#8A2BE2]/40 text-cyan-300 hover:text-white transition-colors border border-[#00BFFF]/30"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Selector */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+        <div className="flex border-b border-[#00BFFF]/30 bg-[#050A30]">
           <button
             onClick={() => setActiveTab('member')}
-            className={`flex-1 py-3 text-center text-sm font-bold flex items-center justify-center gap-2 border-b-2 transition-colors ${
+            className={`flex-1 py-3 text-center text-sm font-bold flex items-center justify-center gap-2 border-b-2 transition-all ${
               activeTab === 'member'
-                ? 'border-emerald-700 text-emerald-800 dark:text-amber-400 bg-white dark:bg-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#00FFFF] text-[#00FFFF] bg-[#0A1035] shadow-[0_0_15px_rgba(0,255,255,0.3)]'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
-            <UserPlus className="w-4 h-4" />
+            <UserPlus className="w-4 h-4 text-[#00BFFF]" />
             <span>যাত্রী সদস্য ফর্ম</span>
           </button>
           <button
             onClick={() => setActiveTab('settings')}
-            className={`flex-1 py-3 text-center text-sm font-bold flex items-center justify-center gap-2 border-b-2 transition-colors ${
+            className={`flex-1 py-3 text-center text-sm font-bold flex items-center justify-center gap-2 border-b-2 transition-all ${
               activeTab === 'settings'
-                ? 'border-emerald-700 text-emerald-800 dark:text-amber-400 bg-white dark:bg-slate-900'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                ? 'border-[#FF4DFF] text-[#FF4DFF] bg-[#0A1035] shadow-[0_0_15px_rgba(255,77,255,0.3)]'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
-            <Settings className="w-4 h-4" />
+            <Settings className="w-4 h-4 text-[#FF4DFF]" />
             <span>শিরোনাম ও এজেন্সির নাম</span>
           </button>
         </div>
@@ -151,16 +154,16 @@ export const AdminModal: React.FC<AdminModalProps> = ({
               
               {/* Serial Slot Selector */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   সিরিয়াল নম্বর স্লট (১ থেকে ৫০)
                 </label>
                 <select
                   value={serial}
                   onChange={(e) => setSerial(Number(e.target.value))}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-emerald-800 dark:text-amber-300 focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] font-bold text-[#00FFFF] focus:ring-2 focus:ring-[#00FFFF] focus:outline-none shadow-[inset_0_0_10px_rgba(0,191,255,0.2)]"
                 >
                   {Array.from({ length: allMembersCount }, (_, i) => i + 1).map((s) => (
-                    <option key={s} value={s}>
+                    <option key={s} value={s} className="bg-[#050A30] text-cyan-200">
                       ক্রমিক #{s}
                     </option>
                   ))}
@@ -169,8 +172,8 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               {/* Member Name */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                  যাত্রীর নাম (Full Name) <span className="text-rose-500">*</span>
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
+                  যাত্রীর নাম (Full Name) <span className="text-[#FF4DFF]">*</span>
                 </label>
                 <input
                   type="text"
@@ -178,13 +181,13 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="যেমন: মুহাম্মদ আব্দুর রহমান"
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-white focus:ring-2 focus:ring-[#00FFFF] focus:outline-none text-sm placeholder-cyan-300/30 shadow-[inset_0_0_10px_rgba(0,191,255,0.15)]"
                 />
               </div>
 
               {/* Phone Number */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   ফোন নম্বর (সৌদি মোবাইল formatting)
                 </label>
                 <div className="flex gap-2">
@@ -193,12 +196,12 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+966500000000 অথবা 0500000000"
-                    className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-white focus:ring-2 focus:ring-[#00FFFF] focus:outline-none text-sm placeholder-cyan-300/30 shadow-[inset_0_0_10px_rgba(0,191,255,0.15)]"
                   />
                   <button
                     type="button"
                     onClick={() => setPhone('+966')}
-                    className="px-3 py-1 bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 rounded-xl text-xs font-bold border border-emerald-300/40 whitespace-nowrap hover:bg-emerald-200"
+                    className="px-3 py-1 bg-gradient-to-r from-[#00BFFF] to-[#8A2BE2] text-white rounded-xl text-xs font-bold border border-[#00FFFF]/40 whitespace-nowrap hover:scale-105 transition-transform shadow-[0_0_10px_rgba(0,191,255,0.4)]"
                   >
                     +966 যোগ করুন
                   </button>
@@ -207,7 +210,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               {/* Amount (SAR) */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   পরিশোধিত/জমার পরিমাণ (SAR)
                 </label>
                 <div className="relative">
@@ -218,9 +221,9 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="0"
-                    className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm font-bold"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-[#39FF14] focus:ring-2 focus:ring-[#39FF14] focus:outline-none text-sm font-black shadow-[inset_0_0_10px_rgba(57,255,20,0.2)]"
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-amber-600 dark:text-amber-400">
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#FFD700] glow-icon-gold">
                     {currency}
                   </span>
                 </div>
@@ -228,7 +231,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
               {/* Notes */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   মন্তব্য / বিস্তারিত (ঐচ্ছিক)
                 </label>
                 <input
@@ -236,24 +239,24 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="যেমন: ভিসা প্রসেসিং সম্পন্ন, সম্পূর্ণ পরিশোধিত"
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-white focus:ring-2 focus:ring-[#00FFFF] focus:outline-none text-sm placeholder-cyan-300/30 shadow-[inset_0_0_10px_rgba(0,191,255,0.15)]"
                 />
               </div>
 
               {/* Submit Buttons */}
-              <div className="pt-4 flex items-center justify-end gap-3 border-t border-slate-200 dark:border-slate-800">
+              <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#00BFFF]/30">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-[#050A30]"
                 >
                   বাতিল
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs shadow-lg transition-all"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#39FF14] via-[#7FFF00] to-[#00FFFF] hover:from-[#7FFF00] hover:to-[#39FF14] text-[#050A30] font-black text-xs shadow-[0_0_15px_rgba(57,255,20,0.5)] hover:shadow-[0_0_25px_rgba(127,255,0,0.8)] transition-all active:scale-95 border border-[#39FF14]"
                 >
-                  <Save className="w-4 h-4" />
+                  <Save className="w-4 h-4 stroke-[2.5]" />
                   <span>সংরক্ষণ করুন</span>
                 </button>
               </div>
@@ -263,7 +266,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
             <form onSubmit={handleConfigSubmit} className="space-y-4">
               
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   প্রধান শিরোনাম (Main Title)
                 </label>
                 <input
@@ -271,50 +274,50 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm font-bold"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-[#00FFFF] focus:ring-2 focus:ring-[#00FFFF] focus:outline-none text-sm font-bold shadow-[inset_0_0_10px_rgba(0,191,255,0.15)]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   উপ-শিরোনাম (Sub Title)
                 </label>
                 <input
                   type="text"
                   value={subTitle}
                   onChange={(e) => setSubTitle(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-white focus:ring-2 focus:ring-[#00FFFF] focus:outline-none text-sm shadow-[inset_0_0_10px_rgba(0,191,255,0.15)]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   এজেন্সির নাম (Agency Name)
                 </label>
                 <input
                   type="text"
                   value={agencyName}
                   onChange={(e) => setAgencyName(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-white focus:ring-2 focus:ring-[#00FFFF] focus:outline-none text-sm shadow-[inset_0_0_10px_rgba(0,191,255,0.15)]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-cyan-300 mb-1">
                   মুদ্রার প্রতীক (Currency Symbol)
                 </label>
                 <input
                   type="text"
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-600 focus:outline-none text-sm font-bold"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#050A30] text-[#FFD700] focus:ring-2 focus:ring-[#FFD700] focus:outline-none text-sm font-bold shadow-[inset_0_0_10px_rgba(255,215,0,0.15)]"
                 />
               </div>
 
               {/* Danger / Action Zone */}
-              <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
-                <h4 className="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
-                  <AlertTriangle className="w-4 h-4" />
+              <div className="mt-6 pt-4 border-t border-[#00BFFF]/30 space-y-3">
+                <h4 className="text-xs font-bold text-[#FF4DFF] flex items-center gap-1.5">
+                  <AlertTriangle className="w-4 h-4 text-[#FF4DFF]" />
                   <span>ডেটা রিসেট অপশন</span>
                 </h4>
 
@@ -327,7 +330,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                         onClose();
                       }
                     }}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-800 text-xs font-bold border border-rose-300 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#FF4DFF]/20 hover:bg-[#FF4DFF]/30 text-[#FF4DFF] text-xs font-bold border border-[#FF4DFF]/50 transition-colors shadow-[0_0_10px_rgba(255,77,255,0.2)]"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>সকল ৫০ টি স্লট খালি করুন</span>
@@ -339,7 +342,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                       onSeedSampleMembers();
                       onClose();
                     }}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold border border-amber-300 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#FFD700]/20 hover:bg-[#FFD700]/30 text-[#FFD700] text-xs font-bold border border-[#FFD700]/50 transition-colors shadow-[0_0_10px_rgba(255,215,0,0.2)]"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>নমুনা ডেটা লোড করুন (Demo Data)</span>
@@ -348,17 +351,17 @@ export const AdminModal: React.FC<AdminModalProps> = ({
               </div>
 
               {/* Submit Buttons */}
-              <div className="pt-4 flex items-center justify-end gap-3 border-t border-slate-200 dark:border-slate-800">
+              <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#00BFFF]/30">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-[#050A30]"
                 >
                   বাতিল
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs shadow-lg transition-all"
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] to-[#FF4DFF] hover:from-[#00FFFF] hover:to-[#FF4DFF] text-white font-extrabold text-xs shadow-[0_0_15px_rgba(0,191,255,0.5)] hover:shadow-[0_0_25px_rgba(255,77,255,0.8)] transition-all active:scale-95 border border-[#00FFFF]/50"
                 >
                   <Save className="w-4 h-4" />
                   <span>সেটিংস পরিবর্তন করুন</span>

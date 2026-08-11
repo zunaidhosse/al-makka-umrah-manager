@@ -78,25 +78,25 @@ export const MemberTable: React.FC<MemberTableProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl border-2 border-emerald-900/20 dark:border-emerald-700/40 shadow-xl overflow-hidden print-area">
+    <div className="bg-[#0A1035]/85 rounded-2xl border-2 border-[#00BFFF]/40 shadow-[0_0_30px_rgba(0,191,255,0.2)] overflow-hidden print-area">
       
       {/* Table Header Controls (Search & Quick Filter & Export 3-Dot Menu) */}
-      <div className="no-print p-4 sm:p-6 bg-gradient-to-r from-emerald-900/5 via-amber-500/5 to-emerald-900/5 dark:from-emerald-950 dark:via-slate-900 dark:to-emerald-950 border-b border-emerald-800/10 dark:border-emerald-700/30 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="no-print p-4 sm:p-6 bg-gradient-to-r from-[#050A30] via-[#0A1035] to-[#050A30] border-b border-[#00BFFF]/30 flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Search Input */}
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#00FFFF] glow-icon-cyan" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="যাত্রীর নাম বা নং দিয়ে খুঁজুন..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-emerald-800/20 dark:border-emerald-700/40 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:focus:ring-amber-500 transition-all shadow-sm"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[#00BFFF]/50 bg-[#0A1035] text-cyan-100 text-sm focus:outline-none focus:ring-2 focus:ring-[#00FFFF] focus:border-[#00FFFF] transition-all shadow-[inset_0_0_10px_rgba(0,191,255,0.15)] placeholder-cyan-300/40"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#FF4DFF] hover:text-white font-bold"
             >
               মুছুন
             </button>
@@ -106,33 +106,33 @@ export const MemberTable: React.FC<MemberTableProps> = ({
         {/* Filter Tabs, Add Button & 3-Dot Export Menu */}
         <div className="flex items-center gap-2 sm:gap-3 w-full md:w-auto justify-between md:justify-end flex-wrap">
           
-          <div className="inline-flex rounded-xl p-1 bg-emerald-900/10 dark:bg-slate-800 border border-emerald-800/20 dark:border-emerald-700/40 text-xs">
+          <div className="inline-flex rounded-xl p-1 bg-[#050A30] border border-[#00BFFF]/40 text-xs shadow-inner">
             <button
               onClick={() => setFilterMode('all')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                 filterMode === 'all'
-                  ? 'bg-emerald-800 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-emerald-800'
+                  ? 'bg-gradient-to-r from-[#00BFFF] to-[#0047FF] text-white shadow-[0_0_10px_rgba(0,191,255,0.6)]'
+                  : 'text-cyan-200/80 hover:text-white'
               }`}
             >
               সকল ({displayMembers.length})
             </button>
             <button
               onClick={() => setFilterMode('filled')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                 filterMode === 'filled'
-                  ? 'bg-emerald-800 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-emerald-800'
+                  ? 'bg-gradient-to-r from-[#39FF14] to-[#7FFF00] text-[#050A30] shadow-[0_0_10px_rgba(57,255,20,0.6)]'
+                  : 'text-cyan-200/80 hover:text-white'
               }`}
             >
               নিবন্ধিত
             </button>
             <button
               onClick={() => setFilterMode('empty')}
-              className={`px-3 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                 filterMode === 'empty'
-                  ? 'bg-emerald-800 text-white shadow-sm'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-emerald-800'
+                  ? 'bg-gradient-to-r from-[#8A2BE2] to-[#FF4DFF] text-white shadow-[0_0_10px_rgba(255,77,255,0.6)]'
+                  : 'text-cyan-200/80 hover:text-white'
               }`}
             >
               খালি
@@ -142,9 +142,9 @@ export const MemberTable: React.FC<MemberTableProps> = ({
           {/* Add Member Button */}
           <button
             onClick={onAddMember}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 border border-amber-400/40"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] to-[#FF4DFF] hover:from-[#00FFFF] hover:to-[#FF4DFF] text-white font-extrabold text-xs sm:text-sm shadow-[0_0_15px_rgba(0,191,255,0.5)] hover:shadow-[0_0_25px_rgba(255,77,255,0.8)] transition-all active:scale-95 border border-[#00FFFF]/50"
           >
-            <PlusCircle className="w-4 h-4 text-amber-300" />
+            <PlusCircle className="w-4 h-4 text-[#00FFFF] glow-icon-cyan" />
             <span>➕ নতুন যাত্রী</span>
           </button>
 
@@ -161,17 +161,17 @@ export const MemberTable: React.FC<MemberTableProps> = ({
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-emerald-900 text-amber-300 text-xs sm:text-sm font-bold uppercase tracking-wider border-b-2 border-amber-500">
-              <th className="py-3.5 px-3 text-center w-14 sm:w-16 border-r border-emerald-800">
+            <tr className="bg-gradient-to-r from-[#0047FF] via-[#8A2BE2] to-[#FF4DFF] text-white text-xs sm:text-sm font-black uppercase tracking-wider border-b-2 border-[#00FFFF]">
+              <th className="py-3.5 px-3 text-center w-14 sm:w-16 border-r border-[#00BFFF]/30">
                 ক্রমিক
               </th>
-              <th className="py-3.5 px-4 sm:px-6 border-r border-emerald-800 min-w-[180px]">
+              <th className="py-3.5 px-4 sm:px-6 border-r border-[#00BFFF]/30 min-w-[180px]">
                 যাত্রীর নাম (Name)
               </th>
-              <th className="py-3.5 px-4 sm:px-6 text-center border-r border-emerald-800 w-28 sm:w-36">
+              <th className="py-3.5 px-4 sm:px-6 text-center border-r border-[#00BFFF]/30 w-28 sm:w-36">
                 পরিমাণ ({currencySymbol})
               </th>
-              <th className="py-3.5 px-3 sm:px-4 text-center border-r border-emerald-800 w-20 sm:w-24">
+              <th className="py-3.5 px-3 sm:px-4 text-center border-r border-[#00BFFF]/30 w-20 sm:w-24">
                 ফোন
               </th>
               <th className="py-3.5 px-3 sm:px-4 text-center w-16 sm:w-20 no-print">
@@ -179,14 +179,14 @@ export const MemberTable: React.FC<MemberTableProps> = ({
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-emerald-900/10 dark:divide-emerald-800/30 text-xs sm:text-sm">
+          <tbody className="divide-y divide-[#00BFFF]/20 text-xs sm:text-sm">
             {filteredMembers.length === 0 ? (
               <tr>
-                <td colSpan={5} className="py-12 text-center text-slate-500 dark:text-slate-400">
+                <td colSpan={5} className="py-12 text-center text-cyan-200/60">
                   <div className="flex flex-col items-center justify-center gap-2">
-                    <AlertCircle className="w-8 h-8 text-amber-500" />
-                    <p className="font-medium text-base">কোনো তথ্য পাওয়া যায়নি</p>
-                    <p className="text-xs">ফিল্টার বা সার্চ পরিবর্তন করে দেখুন</p>
+                    <AlertCircle className="w-8 h-8 text-[#FFD700] glow-icon-gold" />
+                    <p className="font-bold text-base text-[#00FFFF]">কোনো তথ্য পাওয়া যায়নি</p>
+                    <p className="text-xs text-slate-400">ফিল্টার বা সার্চ পরিবর্তন করে দেখুন</p>
                   </div>
                 </td>
               </tr>
@@ -198,24 +198,24 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                 return (
                   <tr
                     key={member.id}
-                    className={`transition-colors hover:bg-emerald-50/60 dark:hover:bg-emerald-950/40 ${
+                    className={`transition-colors hover:bg-[#8A2BE2]/25 ${
                       isEmpty
-                        ? 'bg-slate-50/50 dark:bg-slate-900/50 text-slate-400'
-                        : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100'
+                        ? 'bg-[#050A30]/40 text-slate-400'
+                        : 'bg-[#0A1035]/60 text-slate-100'
                     }`}
                   >
                     {/* Serial Number Column */}
-                    <td className="py-3 px-2 sm:px-3 text-center font-bold text-emerald-950 dark:text-emerald-400 border-r border-emerald-900/10 dark:border-emerald-800/20 bg-emerald-900/5 dark:bg-emerald-950/20">
-                      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-emerald-900 text-amber-300 text-xs font-black shadow-inner">
+                    <td className="py-3 px-2 sm:px-3 text-center font-bold text-cyan-300 border-r border-[#00BFFF]/20 bg-[#050A30]/60">
+                      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-br from-[#00BFFF] to-[#8A2BE2] text-white text-xs font-black shadow-[0_0_10px_rgba(0,191,255,0.5)]">
                         {member.serial}
                       </span>
                     </td>
 
                     {/* Member Name Column - Single Line Crisp Text */}
-                    <td className="py-3 px-4 sm:px-6 border-r border-emerald-900/10 dark:border-emerald-800/20">
+                    <td className="py-3 px-4 sm:px-6 border-r border-[#00BFFF]/20">
                       <div className="flex items-center justify-between gap-2 overflow-hidden">
                         <div className="flex items-center gap-2 overflow-hidden">
-                          <User className={`w-4 h-4 shrink-0 ${isEmpty ? 'text-slate-300 dark:text-slate-600' : 'text-emerald-700 dark:text-emerald-400'}`} />
+                          <User className={`w-4 h-4 shrink-0 ${isEmpty ? 'text-slate-500' : 'text-[#00FFFF] glow-icon-cyan'}`} />
                           <button
                             onClick={() => {
                               if (member.phone) {
@@ -224,10 +224,10 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                                 onEditMember(member);
                               }
                             }}
-                            className={`whitespace-nowrap font-bold text-left overflow-hidden text-ellipsis focus:outline-none ${
+                            className={`whitespace-nowrap font-bold text-left overflow-hidden text-ellipsis focus:outline-none transition-colors ${
                               isEmpty
-                                ? 'text-slate-400 dark:text-slate-500 italic font-normal'
-                                : 'text-slate-900 dark:text-emerald-200 hover:text-emerald-700 text-sm sm:text-base tracking-wide'
+                                ? 'text-slate-500 italic font-normal'
+                                : 'text-white hover:text-[#00FFFF] text-sm sm:text-base tracking-wide drop-shadow-[0_0_8px_rgba(0,255,255,0.3)]'
                             }`}
                             title={member.phone ? `কল করুন: ${member.phone}` : 'সম্পাদনা করুন'}
                           >
@@ -236,7 +236,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                         </div>
 
                         {member.notes && (
-                          <span className="hidden xl:inline-block px-2 py-0.5 text-[10px] rounded-md bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border border-amber-300/40 shrink-0">
+                          <span className="hidden xl:inline-block px-2 py-0.5 text-[10px] rounded-md bg-[#8A2BE2]/30 text-[#FF4DFF] border border-[#FF4DFF]/40 shrink-0 font-bold shadow-[0_0_8px_rgba(255,77,255,0.3)]">
                             {member.notes}
                           </span>
                         )}
@@ -244,12 +244,12 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                     </td>
 
                     {/* Amount (SAR) Column */}
-                    <td className="py-3 px-4 text-center border-r border-emerald-900/10 dark:border-emerald-800/20 font-bold whitespace-nowrap">
+                    <td className="py-3 px-4 text-center border-r border-[#00BFFF]/20 font-bold whitespace-nowrap">
                       <span
                         className={`inline-block px-3 py-1 rounded-xl text-xs sm:text-sm ${
                           member.amount > 0
-                            ? 'bg-emerald-100 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-400/40 shadow-xs font-extrabold'
-                            : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500 font-medium'
+                            ? 'bg-gradient-to-r from-[#39FF14]/20 to-[#7FFF00]/20 text-[#39FF14] border border-[#39FF14]/60 shadow-[0_0_10px_rgba(57,255,20,0.3)] font-black'
+                            : 'bg-[#050A30]/60 text-slate-500 border border-slate-700 font-medium'
                         }`}
                       >
                         {member.amount.toLocaleString('bn-BD')} {currencySymbol}
@@ -257,17 +257,17 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                     </td>
 
                     {/* Phone Column - ONLY Phone Icon (Phone text hidden) */}
-                    <td className="py-3 px-2 text-center border-r border-emerald-900/10 dark:border-emerald-800/20">
+                    <td className="py-3 px-2 text-center border-r border-[#00BFFF]/20">
                       {member.phone ? (
                         <button
                           onClick={() => handleCall(member.phone, member.name)}
-                          className="p-2 rounded-full bg-emerald-700 hover:bg-emerald-600 text-amber-300 shadow-sm transition-transform active:scale-90 inline-flex items-center justify-center border border-amber-400/40"
+                          className="p-2 rounded-full bg-gradient-to-r from-[#39FF14] to-[#7FFF00] hover:from-[#7FFF00] hover:to-[#39FF14] text-[#050A30] shadow-[0_0_12px_rgba(57,255,20,0.6)] transition-transform active:scale-90 inline-flex items-center justify-center border border-[#39FF14]"
                           title={`ফোন করুন (${member.phone})`}
                         >
-                          <Phone className="w-4 h-4 text-amber-300" />
+                          <Phone className="w-4 h-4 text-[#050A30] stroke-[2.5]" />
                         </button>
                       ) : (
-                        <span className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-600 inline-flex items-center justify-center cursor-not-allowed">
+                        <span className="p-2 rounded-full bg-[#050A30]/60 text-slate-600 inline-flex items-center justify-center cursor-not-allowed border border-slate-800">
                           <PhoneOff className="w-3.5 h-3.5" />
                         </span>
                       )}
@@ -277,7 +277,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                     <td className="py-3 px-2 text-center relative no-print row-action-menu">
                       <button
                         onClick={() => setActiveMenuId(isMenuOpen ? null : member.id)}
-                        className="p-1.5 rounded-lg bg-emerald-900/10 dark:bg-slate-800 hover:bg-amber-500 hover:text-emerald-950 text-slate-700 dark:text-emerald-300 transition-colors shadow-xs"
+                        className="p-1.5 rounded-lg bg-[#050A30] hover:bg-[#00BFFF] hover:text-[#050A30] text-[#00FFFF] transition-all shadow-[0_0_10px_rgba(0,191,255,0.3)] border border-[#00BFFF]/40"
                         title="অ্যাকশন মেনু (3-Dot)"
                       >
                         <MoreVertical className="w-4 h-4" />
@@ -285,7 +285,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
 
                       {/* Row Action Dropdown Menu */}
                       {isMenuOpen && (
-                        <div className="absolute right-2 top-10 w-44 rounded-xl bg-white dark:bg-slate-800 border-2 border-amber-400/80 shadow-2xl z-40 overflow-hidden text-left p-1 text-xs font-medium animate-fadeIn">
+                        <div className="absolute right-2 top-10 w-48 rounded-2xl bg-[#0A1035] border-2 border-[#00FFFF] shadow-[0_0_25px_rgba(0,255,255,0.5)] z-40 overflow-hidden text-left p-1.5 text-xs font-bold animate-fadeIn">
                           
                           {/* Call Option */}
                           {member.phone && (
@@ -294,9 +294,9 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                                 setActiveMenuId(null);
                                 handleCall(member.phone, member.name);
                               }}
-                              className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-emerald-800 dark:text-emerald-200 hover:bg-emerald-50 dark:hover:bg-slate-700 transition-colors"
+                              className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-[#39FF14] hover:bg-[#39FF14]/20 transition-colors"
                             >
-                              <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                              <Phone className="w-3.5 h-3.5 text-[#39FF14]" />
                               <span>কল করুন</span>
                             </button>
                           )}
@@ -307,9 +307,9 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                               setActiveMenuId(null);
                               onEditMember(member);
                             }}
-                            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-amber-800 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-slate-700 transition-colors"
+                            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-[#00FFFF] hover:bg-[#00BFFF]/20 transition-colors"
                           >
-                            <Edit2 className="w-3.5 h-3.5 text-amber-600" />
+                            <Edit2 className="w-3.5 h-3.5 text-[#00FFFF]" />
                             <span>সম্পাদনা করুন</span>
                           </button>
 
@@ -319,9 +319,9 @@ export const MemberTable: React.FC<MemberTableProps> = ({
                               setActiveMenuId(null);
                               onDeleteMember(member.id);
                             }}
-                            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-rose-700 dark:text-rose-300 hover:bg-rose-50 dark:hover:bg-slate-700 transition-colors border-t border-slate-100 dark:border-slate-700 mt-1 pt-1.5"
+                            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-[#FF4DFF] hover:bg-[#FF4DFF]/20 transition-colors border-t border-[#00BFFF]/30 mt-1 pt-1.5"
                           >
-                            <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                            <Trash2 className="w-3.5 h-3.5 text-[#FF4DFF]" />
                             <span>তথ্য মুছুন / রিসেট</span>
                           </button>
 
@@ -338,7 +338,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
       </div>
 
       {/* Footer Note */}
-      <div className="p-3 sm:p-4 bg-emerald-900/5 dark:bg-emerald-950/40 border-t border-emerald-900/10 dark:border-emerald-800/30 text-center text-xs text-slate-500 dark:text-slate-400">
+      <div className="p-3 sm:p-4 bg-[#050A30]/80 border-t border-[#00BFFF]/30 text-center text-xs text-cyan-200/80 font-medium">
         অটো-গ্রো টেবিল: নিবন্ধিত যাত্রীর সাথে ২টি অতিরিক্ত খালি ঘর থাকবে • ৩-ডট মেনু ক্লিক করে তথ্য পরিবর্তন বা মুছুন
       </div>
 

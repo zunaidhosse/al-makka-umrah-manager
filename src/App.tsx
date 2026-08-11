@@ -196,17 +196,25 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-emerald-950/5 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen neon-body-bg text-slate-100 flex flex-col font-sans transition-colors duration-200 relative overflow-hidden">
       
+      {/* Background Floating Light Glow Orbs */}
+      <div className="glowing-orb-1"></div>
+      <div className="glowing-orb-2"></div>
+      <div className="glowing-orb-3"></div>
+
       {/* PWA Bar */}
       <PWAInstallPrompt />
 
       {/* Main Container */}
-      <div className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 relative z-10">
         
-        {/* Export Container Identifier Wrapper */}
-        <div id="exportable-package-dashboard" className="p-2 sm:p-4 rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xs border border-emerald-900/10 dark:border-emerald-700/20 shadow-sm">
+        {/* Export Container Identifier Wrapper with Glassmorphism & Neon Border Glow */}
+        <div id="exportable-package-dashboard" className="p-3 sm:p-5 rounded-3xl bg-[#0A1035]/80 backdrop-blur-xl border-2 border-[#00BFFF]/40 shadow-[0_0_35px_rgba(0,191,255,0.25)] relative overflow-hidden">
           
+          {/* Subtle Top Gradient Line Accent */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] via-[#FF4DFF] via-[#39FF14] to-[#FFD700]"></div>
+
           {/* Header Component */}
           <Header
             config={config}
@@ -242,12 +250,12 @@ export default function App() {
         </div>
 
         {/* Footer info */}
-        <footer className="no-print mt-8 py-6 text-center text-xs text-slate-500 dark:text-slate-400 border-t border-emerald-900/10 dark:border-emerald-800/20 flex flex-col items-center gap-2">
-          <div className="flex items-center gap-2 font-medium">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>যাত্রী প্যাকেজ তালিকা • হাজী ও ওমরাহ ম্যানেজমেন্ট সিস্টেম</span>
+        <footer className="no-print mt-8 py-6 text-center text-xs text-cyan-300/70 border-t border-[#00BFFF]/20 flex flex-col items-center gap-2">
+          <div className="flex items-center gap-2 font-medium text-cyan-300">
+            <ShieldCheck className="w-4 h-4 text-[#39FF14] glow-icon-green" />
+            <span className="neon-text-gradient-primary font-bold">যাত্রী প্যাকেজ তালিকা • হাজী ও ওমরাহ ম্যানেজমেন্ট সিস্টেম</span>
           </div>
-          <p>© {new Date().getFullYear()} {config.agencyName} • অফলাইন সাপোর্ট ও স্থানীয় অটো-সেভ সুবিধা যুক্ত</p>
+          <p className="text-slate-400">© {new Date().getFullYear()} {config.agencyName} • অফলাইন সাপোর্ট ও স্থানীয় অটো-সেভ সুবিধা যুক্ত</p>
         </footer>
 
       </div>

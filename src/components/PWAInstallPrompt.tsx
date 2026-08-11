@@ -116,45 +116,48 @@ export const PWAInstallPrompt: React.FC = () => {
     <>
       {/* Offline Alert Bar */}
       {!isOnline && (
-        <div className="no-print bg-amber-500 text-emerald-950 px-4 py-2 text-xs sm:text-sm font-bold text-center flex items-center justify-center gap-2 shadow-md z-50 relative">
-          <WifiOff className="w-4 h-4" />
+        <div className="no-print bg-gradient-to-r from-[#FF8C00] via-[#FFD700] to-[#FF8C00] text-[#050A30] px-4 py-2 text-xs sm:text-sm font-black text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,215,0,0.6)] z-50 relative border-b-2 border-[#FFD700]">
+          <WifiOff className="w-4 h-4 text-[#050A30]" />
           <span>আপনি এখন অফলাইনে আছেন। আপনার সংরক্ষিত ডেটা নিরাপদ রয়েছে।</span>
         </div>
       )}
 
       {/* PWA Installation Modal */}
       {showModal && (
-        <div className="no-print fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-fade-in">
-          <div className="bg-emerald-950 border-2 border-amber-400 rounded-3xl max-w-sm w-full shadow-2xl p-6 text-white space-y-4 animate-scale-up relative">
+        <div className="no-print fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050A30]/85 backdrop-blur-md animate-fade-in">
+          <div className="bg-[#0A1035]/95 border-2 border-[#00FFFF] rounded-3xl max-w-sm w-full shadow-[0_0_40px_rgba(0,255,255,0.4)] p-6 text-white space-y-4 animate-scale-up relative overflow-hidden">
             
+            {/* Top Glowing Bar */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] via-[#FF4DFF] to-[#39FF14]"></div>
+
             {/* Close / Later Button */}
             <button
               onClick={handleLaterClick}
-              className="absolute top-4 right-4 p-1.5 rounded-lg text-emerald-300 hover:text-white hover:bg-emerald-900 transition-colors"
+              className="absolute top-4 right-4 p-1.5 rounded-xl bg-[#050A30] text-cyan-300 hover:text-white hover:bg-[#8A2BE2]/40 transition-colors border border-[#00BFFF]/30"
               title="বন্ধ করুন"
             >
               <X className="w-5 h-5" />
             </button>
 
             {/* App Icon Header */}
-            <div className="flex flex-col items-center text-center space-y-2">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 p-0.5 shadow-lg flex items-center justify-center">
+            <div className="flex flex-col items-center text-center space-y-2 pt-2">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#00FFFF] via-[#8A2BE2] to-[#FF4DFF] p-0.5 shadow-[0_0_20px_rgba(0,255,255,0.5)] flex items-center justify-center">
                 <img
                   src="./favicon.svg"
                   alt="App Icon"
-                  className="w-full h-full rounded-2xl object-cover"
+                  className="w-full h-full rounded-2xl object-cover bg-[#050A30]"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <h3 className="text-xl font-bold text-amber-300 font-bengali-heading pt-1">
+              <h3 className="text-xl font-extrabold neon-text-gradient-primary pt-1">
                 {installedSuccess ? 'ইন্সটল সফল হয়েছে!' : 'অ্যাপ ইন্সটল করুন'}
               </h3>
             </div>
 
             {/* Success Message */}
             {installedSuccess ? (
-              <div className="p-4 bg-emerald-900/90 border border-emerald-500/50 rounded-2xl text-center space-y-2">
-                <CheckCircle2 className="w-10 h-10 text-amber-400 mx-auto" />
+              <div className="p-4 bg-[#39FF14]/20 border-2 border-[#39FF14] rounded-2xl text-center space-y-2 shadow-[0_0_20px_rgba(57,255,20,0.3)]">
+                <CheckCircle2 className="w-10 h-10 text-[#39FF14] mx-auto glow-icon-green" />
                 <p className="text-sm font-bold text-white">
                   অ্যাপটি আপনার হোম স্ক্রিনে যুক্ত হয়েছে!
                 </p>
@@ -162,34 +165,34 @@ export const PWAInstallPrompt: React.FC = () => {
             ) : (
               <>
                 {/* Modal Body Message */}
-                <p className="text-sm text-emerald-100/90 text-center leading-relaxed">
+                <p className="text-sm text-cyan-200/90 text-center leading-relaxed font-medium">
                   দ্রুত ব্যবহার ও অফলাইন সুবিধার জন্য অ্যাপটি আপনার ফোনে ইন্সটল করুন।
                 </p>
 
                 {/* Fallback Android Notice */}
                 {fallbackGuide && !isIOS && (
-                  <div className="p-3.5 bg-emerald-900/90 border border-amber-400/50 rounded-2xl text-xs text-amber-200 space-y-2 text-left animate-fade-in">
-                    <p className="font-bold flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm">
-                      <Download className="w-4 h-4 text-amber-400" />
+                  <div className="p-3.5 bg-[#050A30] border-2 border-[#FFD700] rounded-2xl text-xs text-cyan-100 space-y-2 text-left animate-fade-in shadow-[0_0_15px_rgba(255,215,0,0.3)]">
+                    <p className="font-extrabold flex items-center gap-1.5 text-[#FFD700] text-xs sm:text-sm">
+                      <Download className="w-4 h-4 text-[#FFD700] glow-icon-gold" />
                       হোম স্ক্রিনে যুক্ত করার সহজ নিয়ম:
                     </p>
-                    <p className="text-emerald-100 text-xs leading-relaxed">
-                      ক্রোম ব্রাউজারের পপআপে বা ৩-ডট মেনুতে <strong>"Create shortcut"</strong> বা <strong>"Add to Home screen"</strong> ডায়ালগ আসলে <strong>"Add"</strong> বা <strong>"ইন্সটল"</strong> বাটনে ক্লিক করুন।
+                    <p className="text-cyan-200 text-xs leading-relaxed">
+                      ক্রোম ব্রাউজারের পপআপে বা ৩-ডট মেনুতে <strong className="text-[#00FFFF]">"Create shortcut"</strong> বা <strong className="text-[#00FFFF]">"Add to Home screen"</strong> ডায়ালগ আসলে <strong className="text-[#39FF14]">"Add"</strong> বা <strong className="text-[#39FF14]">"ইন্সটল"</strong> বাটনে ক্লিক করুন।
                     </p>
                   </div>
                 )}
 
                 {/* iOS Instructions (only if iOS) */}
                 {isIOS && (
-                  <div className="p-3.5 bg-emerald-900/90 border border-amber-400/50 rounded-2xl text-xs text-amber-200 space-y-2 text-left animate-fade-in">
-                    <p className="font-bold flex items-center gap-1.5 text-amber-300 text-xs sm:text-sm">
-                      <Share2 className="w-4 h-4" />
+                  <div className="p-3.5 bg-[#050A30] border-2 border-[#00FFFF] rounded-2xl text-xs text-cyan-100 space-y-2 text-left animate-fade-in shadow-[0_0_15px_rgba(0,255,255,0.3)]">
+                    <p className="font-extrabold flex items-center gap-1.5 text-[#00FFFF] text-xs sm:text-sm">
+                      <Share2 className="w-4 h-4 text-[#00FFFF]" />
                       আইফোনে (iOS) ইন্সটল করার নিয়ম:
                     </p>
-                    <ol className="list-decimal list-inside space-y-1 text-emerald-100">
-                      <li>সাফারি (Safari) ব্রাউজারের নিচে <strong>Share (শেয়ার)</strong> বাটনে চাপুন।</li>
-                      <li>নিচে স্ক্রোল করে <strong>Add to Home Screen</strong> সিলেক্ট করুন।</li>
-                      <li>উপরে <strong>Add</strong> ক্লিক করলেই অ্যাপ ইন্সটল হয়ে যাবে।</li>
+                    <ol className="list-decimal list-inside space-y-1 text-cyan-200">
+                      <li>সাফারি (Safari) ব্রাউজারের নিচে <strong className="text-[#FF4DFF]">Share (শেয়ার)</strong> বাটনে চাপুন।</li>
+                      <li>নিচে স্ক্রোল করে <strong className="text-[#39FF14]">Add to Home Screen</strong> সিলেক্ট করুন।</li>
+                      <li>উপরে <strong className="text-[#00FFFF]">Add</strong> ক্লিক করলেই অ্যাপ ইন্সটল হয়ে যাবে।</li>
                     </ol>
                   </div>
                 )}
@@ -198,19 +201,19 @@ export const PWAInstallPrompt: React.FC = () => {
                 <div className="flex items-center gap-3 pt-1">
                   <button
                     onClick={handleLaterClick}
-                    className="flex-1 py-3 px-4 rounded-xl bg-emerald-900/80 hover:bg-emerald-800 text-emerald-200 font-bold text-sm border border-emerald-700 transition-all active:scale-95 text-center"
+                    className="flex-1 py-3 px-4 rounded-xl bg-[#050A30] hover:bg-[#8A2BE2]/30 text-cyan-300 font-bold text-sm border border-[#00BFFF]/40 transition-all active:scale-95 text-center"
                   >
                     পরে (Later)
                   </button>
 
                   <button
                     onClick={handleInstallClick}
-                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-emerald-950 font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
+                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#00BFFF] via-[#8A2BE2] to-[#FF4DFF] hover:from-[#00FFFF] hover:to-[#FF4DFF] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,191,255,0.6)] transition-all active:scale-95 text-center border border-[#00FFFF]/50"
                   >
                     {isInIframe ? (
                       <>
                         <ExternalLink className="w-4 h-4" />
-                        <span>নতুন ট্যাবে ইন্সটল করুন</span>
+                        <span>নতুন ট্যাবে খুলুন</span>
                       </>
                     ) : (
                       <>
@@ -224,8 +227,8 @@ export const PWAInstallPrompt: React.FC = () => {
             )}
 
             {/* Sub-note */}
-            <p className="text-[11px] text-emerald-300/70 text-center flex items-center justify-center gap-1 pt-1">
-              <Sparkles className="w-3 h-3 text-amber-400" />
+            <p className="text-[11px] text-cyan-300/80 text-center flex items-center justify-center gap-1 pt-1 font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-[#FFD700]" />
               <span>অ্যান্ড্রয়েড, আইফোন ও কম্পিউটারে অফলাইনে সচল</span>
             </p>
 

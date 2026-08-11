@@ -3,6 +3,9 @@
 @layer base {
   body {
     font-family: 'Hind Siliguri', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #050A30;
+    color: #F0F6FF;
+    overflow-x: hidden;
   }
   h1, h2, h3, .font-bengali-heading {
     font-family: 'Noto Serif Bengali', 'Hind Siliguri', serif;
@@ -12,46 +15,178 @@
   }
 }
 
-/* Islamic Geometric & Gold Pattern Enhancements */
-.bg-islamic-pattern {
-  background-color: #064e3b;
-  background-image: radial-gradient(circle at 50% 50%, rgba(217, 119, 6, 0.15) 0%, transparent 60%),
-                    radial-gradient(circle at 0% 100%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+/* ==========================================================================
+   ULTRA-MODERN VIBRANT GAMING NEON COLOR SYSTEM
+   ========================================================================== */
+
+/* Background Animated Gradient Mesh & Glowing Orbs */
+.neon-body-bg {
+  background: radial-gradient(circle at 15% 15%, rgba(138, 43, 226, 0.25) 0%, transparent 45%),
+              radial-gradient(circle at 85% 20%, rgba(0, 191, 255, 0.25) 0%, transparent 40%),
+              radial-gradient(circle at 50% 80%, rgba(57, 255, 20, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 90% 85%, rgba(255, 77, 255, 0.2) 0%, transparent 45%),
+              linear-gradient(135deg, #050A30 0%, #0A1035 50%, #03061A 100%);
+  background-attachment: fixed;
 }
 
-.gold-gradient-text {
-  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+/* Floating Light Glow Orbs */
+.glowing-orb-1 {
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 12s infinite alternate ease-in-out;
+}
+
+.glowing-orb-2 {
+  position: fixed;
+  bottom: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 15s infinite alternate-reverse ease-in-out;
+}
+
+.glowing-orb-3 {
+  position: fixed;
+  top: 40%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 77, 255, 0.2) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 10s infinite alternate ease-in-out;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.1); }
+  100% { transform: translate(-20px, 30px) scale(0.9); }
+}
+
+/* Glassmorphism Cards */
+.glass-card-neon {
+  background: rgba(10, 16, 53, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5),
+              0 0 15px rgba(0, 191, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-neon:hover {
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6),
+              0 0 25px rgba(0, 191, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Gradient Text Utilities */
+.neon-text-gradient-primary {
+  background: linear-gradient(135deg, #00BFFF 0%, #00FFFF 50%, #FF4DFF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(0, 191, 255, 0.4));
 }
 
-.gold-gradient-bg {
-  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+.neon-text-gradient-gold {
+  background: linear-gradient(135deg, #FFD700 0%, #FF8C00 50%, #FF4DFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
 }
 
-.gold-border {
-  border-color: #f59e0b;
+.neon-text-gradient-green {
+  background: linear-gradient(135deg, #39FF14 0%, #7FFF00 50%, #00FFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.5));
 }
 
-.islamic-card-shadow {
-  box-shadow: 0 10px 25px -5px rgba(6, 78, 59, 0.15), 0 8px 10px -6px rgba(180, 83, 9, 0.1);
+.neon-text-gradient-purple {
+  background: linear-gradient(135deg, #8A2BE2 0%, #FF4DFF 50%, #00BFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.5));
+}
+
+/* Gradient Borders */
+.gradient-border-wrapper {
+  position: relative;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #00BFFF, #8A2BE2, #FF4DFF, #39FF14);
+  padding: 1.5px;
+}
+
+.gradient-border-wrapper > div {
+  background: rgba(10, 16, 53, 0.9);
+  border-radius: calc(1rem - 1.5px);
+}
+
+/* Glowing Neon Icon Filters */
+.glow-icon-blue {
+  filter: drop-shadow(0 0 8px #00BFFF);
+}
+.glow-icon-purple {
+  filter: drop-shadow(0 0 8px #8A2BE2);
+}
+.glow-icon-green {
+  filter: drop-shadow(0 0 8px #39FF14);
+}
+.glow-icon-gold {
+  filter: drop-shadow(0 0 8px #FFD700);
+}
+.glow-icon-pink {
+  filter: drop-shadow(0 0 8px #FF4DFF);
+}
+.glow-icon-cyan {
+  filter: drop-shadow(0 0 8px #00FFFF);
+}
+
+/* Pulsing Neon Animation */
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.4), inset 0 0 10px rgba(0, 191, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 77, 255, 0.7), inset 0 0 20px rgba(138, 43, 226, 0.4);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neonPulse 3s infinite ease-in-out;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(6, 78, 59, 0.05);
+  background: #050A30;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d97706;
+  background: linear-gradient(180deg, #00BFFF, #8A2BE2, #FF4DFF);
   border-radius: 9999px;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b45309;
+  background: linear-gradient(180deg, #00FFFF, #FF4DFF, #39FF14);
 }
 
 @media print {
